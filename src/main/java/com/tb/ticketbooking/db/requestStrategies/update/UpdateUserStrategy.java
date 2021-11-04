@@ -4,7 +4,7 @@ package com.tb.ticketbooking.db.requestStrategies.update;
 import com.tb.ticketbooking.db.DBConnection;
 import com.tb.ticketbooking.db.interfaces.DBUpdateRequest;
 import com.tb.ticketbooking.models.interfaces.Model;
-import com.tb.ticketbooking.models.user.UserFields;
+import com.tb.ticketbooking.models.enums.UserFields;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;

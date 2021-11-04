@@ -1,4 +1,4 @@
-package com.tb.ticketbooking.models.user;
+package com.tb.ticketbooking.models.enums;
 
 import com.tb.ticketbooking.models.interfaces.Model;
 

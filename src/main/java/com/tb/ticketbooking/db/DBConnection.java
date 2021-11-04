@@ -24,7 +24,7 @@ public class DBConnection {
     public static Connection getConnection(){
 
         try {
-            dbProperties.load(new FileReader("src/main/resources/DbConnectionConfigs.properties"));
+            dbProperties.load(new FileReader("E:\\University\\Programming\\JavaDirectory\\TicketBookingJEE\\src\\main\\resources\\DbConnectionConfigs.properties"));
             LOGGER.info("Property file was loaded");
 
         } catch (IOException e) {

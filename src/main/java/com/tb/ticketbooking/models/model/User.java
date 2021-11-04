@@ -1,5 +1,6 @@
-package com.tb.ticketbooking.models.user;
+package com.tb.ticketbooking.models.model;
 
+import com.tb.ticketbooking.models.enums.UserFields;
 import com.tb.ticketbooking.models.interfaces.Model;
 
 import java.util.HashMap;

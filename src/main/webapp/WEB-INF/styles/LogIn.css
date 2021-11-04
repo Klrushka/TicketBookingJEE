@@ -1,0 +1,14 @@
+html {
+    background-image: url("../img/reg-back.jpg");
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    font-family: Roboto, serif;
+}
+
+.registration-block{
+    background-image: url("../img/reg-back.jpg");
+    color: blanchedalmond;
+    /*background: blanchedalmond;*/
+}

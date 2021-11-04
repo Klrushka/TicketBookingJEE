@@ -9,6 +9,8 @@
 <html>
 <head>
     <title>Registration</title>
+    <meta name="viewport" content="device-width">
+    <link rel="stylesheet" href="WEB-INF/styles/LogIn.css">
 </head>
 <body>
 
@@ -16,43 +18,31 @@
 
 <form method="post">
     <div class="registration-block">
-        <label for="name-input">
-            Enter your full name
-        </label>
 
-        <input name="name" id="name-input">
+        <p>
+        <input name="name" id="name-input" title="Full name">
+        </p>
+<p>
 
-        <label for="mail-input">
-            Enter your email
-            <br>
-        </label>
+        <input name="mail" id="mail-input" title="mail">
+</p>
 
-        <input name="mail" id="mail-input">
-
-        <label for="birthday-input">
-            Enter your Birthday date
-            <br>
-        </label>
+        <p>
 
         <input type="date" name="birthday" placeholder="YYYY-MM-DD" required
                pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" title="Enter a date in this format YYYY-MM-DD" id="birthday-input"/>
+        </p>
 
-        <label for="phonenumber-input">
-            Enter your phone number
-            <br>
-        </label>
+        <p>
+        <input type="tel" name="phoneNumber" id="phonenumber-input" title="phone">
+        </p>
 
-        <input type="tel" name="phonenumber" id="phonenumber-input">
-
-        <label for="password-input">
-             Enter your password
-            <br>
-        </label>
-
-        <input type="password" name="password" id="password-input" >
-        <br>
-
+        <p>
+        <input type="password" name="password" id="password-input" title="password">
+        </p>
+        <p>
         <input type="submit" value="Save" />
+        </p>
 
     </div>
 </form>

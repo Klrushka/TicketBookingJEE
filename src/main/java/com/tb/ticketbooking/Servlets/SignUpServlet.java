@@ -1,11 +1,11 @@
 package com.tb.ticketbooking.Servlets;
 
 import com.tb.ticketbooking.db.interfaces.DBUpdateRequest;
-import com.tb.ticketbooking.db.requestStrategies.update.UpdateUserStrategy;
+import com.tb.ticketbooking.db.requests.UpdateSQLRequests;
 import com.tb.ticketbooking.models.factory.UserFactory;
 import com.tb.ticketbooking.models.interfaces.Model;
 import com.tb.ticketbooking.models.interfaces.ModelFactory;
-import com.tb.ticketbooking.models.user.UserFields;
+import com.tb.ticketbooking.models.enums.UserFields;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 
-@WebServlet(name = "SignUpServlet", value = "/sign")
+@WebServlet(name = "SignUpServlet", value = "/sign-up")
 public class SignUpServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -28,15 +28,15 @@ public class SignUpServlet extends HttpServlet {
 
         ModelFactory modelFactory = new UserFactory();
 
-        DBUpdateRequest updateRequest = new UpdateUserStrategy();
+        DBUpdateRequest updateRequest = new UpdateSQLRequests();
 
         Model model = modelFactory.getInstance();
 
-        data.put(UserFields.NAME, (String) request.getAttribute("name"));
-        data.put(UserFields.PASSWORD, (String) request.getAttribute("password"));
-        data.put(UserFields.BIRTHDAY, (String) String.valueOf(request.getAttribute("birthday")));
-        data.put(UserFields.PHONENUMBER, (String) request.getAttribute("phoneNumber"));
-        data.put(UserFields.MAIL, (String) request.getAttribute("mail"));
+        data.put(UserFields.NAME, request.getParameter("name"));
+        data.put(UserFields.PASSWORD, request.getParameter("password"));
+        data.put(UserFields.BIRTHDAY, String.valueOf(request.getParameter("birthday")));
+        data.put(UserFields.PHONENUMBER, request.getParameter("phoneNumber"));
+        data.put(UserFields.MAIL, request.getParameter("mail"));
 
 
         model.setModelData(data);
