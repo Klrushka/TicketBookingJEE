@@ -21,10 +21,7 @@ public class DBSignInRequest implements DBSelectRequest {
         try {
             Connection connection = DBConnection.getConnection();
 
-            PreparedStatement statement = connection.prepareStatement(request.getValue());
-
-            statement.setString(1,fields.get(SignInFields.LOGIN));
-            statement.setString(2,fields.get(SignInFields.PASSWORD));
+            PreparedStatement statement = connection.prepareStatement(request.returnRequest(fields));
 
             return statement.executeQuery();
 
