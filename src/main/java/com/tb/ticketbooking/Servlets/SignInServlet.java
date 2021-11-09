@@ -1,9 +1,9 @@
 package com.tb.ticketbooking.Servlets;
 
 import com.tb.ticketbooking.db.interfaces.DBSelectRequest;
-import com.tb.ticketbooking.db.requestStrategies.select.SelectRequests;
-import com.tb.ticketbooking.db.requestStrategies.select.signin.DBSignInRequest;
-import com.tb.ticketbooking.db.requestStrategies.select.signin.SignInFields;
+import com.tb.ticketbooking.db.requests.SelectSQLRequests;
+import com.tb.ticketbooking.db.requestStrategies.select.DBGetResult;
+import com.tb.ticketbooking.db.requestStrategies.Fields;
 import com.tb.ticketbooking.models.enums.UserFields;
 import com.tb.ticketbooking.models.factory.UserFactory;
 import com.tb.ticketbooking.models.interfaces.Model;
@@ -32,15 +32,15 @@ public class SignInServlet extends HttpServlet {
 
         Model model = factory.getInstance();
 
-        DBSelectRequest selectRequest = new DBSignInRequest();
+        DBSelectRequest selectRequest = new DBGetResult();
 
         HashMap<Enum<?>,String> data = new HashMap<>();
 
-        data.put(SignInFields.LOGIN,request.getParameter("login-login"));
-        data.put(SignInFields.PASSWORD,request.getParameter("login-password"));
+        data.put(Fields.LOGIN,request.getParameter("login-login"));
+        data.put(Fields.PASSWORD,request.getParameter("login-password"));
 
 
-        ResultSet resultSet = selectRequest.getData(SelectRequests.SIGN_IN,data);
+        ResultSet resultSet = selectRequest.getData(SelectSQLRequests.SIGN_IN,data);
 
 
         session.setAttribute("user",null);

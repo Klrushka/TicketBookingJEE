@@ -35,11 +35,11 @@ public class SelectAllFlights implements SelectAllData {
 
             ResultSet resultSet = statement.executeQuery(REQUEST);
 
-            ModelFactory factory = new FlightFactory();
-
-            Model model = factory.getInstance();
 
             while (resultSet.next()) {
+                ModelFactory factory = new FlightFactory();
+
+                Model model = factory.getInstance();
 
                 data.put(FlightFields.TIME, String.valueOf(resultSet.getTimestamp("time")));
                 data.put(FlightFields.FROM, resultSet.getString("from"));

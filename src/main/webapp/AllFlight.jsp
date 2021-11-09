@@ -13,43 +13,56 @@
     <title> all flights</title>
 </head>
 <body>
-
-<table>
-    <tr>
-        <th>Root</th>
-        <th>From</th>
-        <th>To</th>
-        <th>Time</th>
-        <th></th>
-    </tr>
-
-    <c:forEach var="flights" items="${flight}">
+<form method="post">
+    <table title="Flights">
         <tr>
-            <td>
-                    ${flights.name}
-            </td>
-
-            <td>
-                    ${flights.from}
-            </td>
-            <td>
-                    ${flights.to}
-            </td>
-            <td>
-                <fmt:formatDate type = "both" dateStyle = "short" timeStyle = "short" value="${flights.time}" />
-            </td>
-
-            <td>
-                <form action="AddSeat.jsp">
-                    <button >
-                        book
-                    </button>
-                </form>
-
-            </td>
+            <th>Root</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Time</th>
         </tr>
-    </c:forEach>
-</table>
 
+        <c:forEach var="flights" items="${flight}">
+            <tr>
+                <td>
+                        ${flights.name}
+                </td>
+
+                <td>
+                        ${flights.from}
+                </td>
+                <td>
+                        ${flights.to}
+                </td>
+                <td>
+                    <fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${flights.time}"/>
+                </td>
+            </tr>
+
+        <tr>
+
+        </tr>
+
+
+        </c:forEach>
+    </table>
+
+
+    <h2> Choose your Root </h2>
+
+    <select name="flyname">
+        <c:forEach items="${flight}" var="flights">
+            <option value="${flights.name}"> ${flights.name} </option>
+        </c:forEach>
+
+
+        <input type="submit" >
+
+
+    </select>
+
+
+
+</form>
 </body>
 </html>

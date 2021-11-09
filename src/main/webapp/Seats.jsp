@@ -1,3 +1,4 @@
+
 <%--
   Created by IntelliJ IDEA.
   User: User
@@ -5,6 +6,8 @@
   Time: 22:34
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -12,7 +15,7 @@
 </head>
 <body>
 
-<form method="post">
+    <h1> <%=session.getAttribute("fl")%> </h1>
 
     <table>
         <tr>
@@ -32,6 +35,6 @@
         </tr>
     </table>
 
-</form>
+
 </body>
 </html>
