@@ -5,5 +5,6 @@ public enum SeatFields {
     PRICE,
     CLASS,
     ORDER_ID,
-    SEAT_NUMBER
+    SEAT_NUMBER,
+    ID
 }

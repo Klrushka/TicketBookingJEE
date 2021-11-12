@@ -34,6 +34,6 @@ public class AllFlightsServlet extends HttpServlet {
         String s = request.getParameter("flyname");
         session.setAttribute("fl",s);
 
-        getServletContext().getRequestDispatcher("/Seats.jsp").forward(request,response);
+        response.sendRedirect("flight-seats");
     }
 }

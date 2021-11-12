@@ -34,14 +34,6 @@ public class Flight implements Model {
         this.time = time;
     }
 
-    public SimpleDateFormat getFormat() {
-        return format;
-    }
-
-    public void setFormat(SimpleDateFormat format) {
-        this.format = format;
-    }
-
     public String getFrom() {
         return from;
     }

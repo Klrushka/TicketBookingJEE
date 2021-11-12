@@ -4,5 +4,6 @@ public enum FlightFields {
     TIME,
     FROM,
     TO,
-    NAME
+    NAME,
+    ID
 }

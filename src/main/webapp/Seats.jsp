@@ -16,7 +16,7 @@
 <body>
 
     <h1> <%=session.getAttribute("fl")%> </h1>
-
+<form method="post">
     <table>
         <tr>
             <th>
@@ -25,16 +25,34 @@
             <th>
                 Place number
             </th>
+            <th>
+                Class
+            </th>
+            <th>
+                Price
+            </th>
         </tr>
 
 
+        <c:forEach var="seat" items="${seats}">
         <tr>
             <td>
-
+                <input type="checkbox" name="seat-id" value="${seat.id}">
+            </td>
+            <td>
+               ${seat.seat_number}
+            </td>
+            <td>
+                ${seat.sClass}
+            </td>
+            <td>
+                ${seat.price}
             </td>
         </tr>
+        </c:forEach>
     </table>
 
-
+    <input type="submit" value="book">
+</form>
 </body>
 </html>

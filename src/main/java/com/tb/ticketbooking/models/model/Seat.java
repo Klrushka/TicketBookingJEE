@@ -7,12 +7,20 @@ import java.util.HashMap;
 
 public class Seat implements Model {
 
-    private int id;
+    private int id = -1;
     private String flightId;
     private String price;
     private String sClass;
     private String orderId;
     private String seat_number;
+
+    public String getSeat_number() {
+        return seat_number;
+    }
+
+    public void setSeat_number(String seat_number) {
+        this.seat_number = seat_number;
+    }
 
     public int getId() {
         return id;
@@ -59,6 +67,9 @@ public class Seat implements Model {
 
         HashMap<Enum<?>, String> data = new HashMap<>();
 
+        if (id != -1) {
+            data.put(SeatFields.ID, String.valueOf(id));
+        }
         data.put(SeatFields.CLASS, sClass);
         data.put(SeatFields.PRICE, price);
         data.put(SeatFields.FLIGHT_ID, flightId);
@@ -70,6 +81,10 @@ public class Seat implements Model {
 
     @Override
     public void setModelData(HashMap<Enum<?>, String> data) {
+
+        if (data.get(SeatFields.ID) != null){
+            id = Integer.parseInt(data.get(SeatFields.ID));
+        }
         flightId = data.get(SeatFields.FLIGHT_ID);
         price = data.get(SeatFields.PRICE);
         sClass = data.get(SeatFields.CLASS);

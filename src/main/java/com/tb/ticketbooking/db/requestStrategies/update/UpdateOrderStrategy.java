@@ -2,16 +2,17 @@ package com.tb.ticketbooking.db.requestStrategies.update;
 
 import com.tb.ticketbooking.db.DBConnection;
 import com.tb.ticketbooking.db.interfaces.DBUpdateRequest;
-import com.tb.ticketbooking.models.enums.FlightFields;
+import com.tb.ticketbooking.models.enums.OrderFields;
 import com.tb.ticketbooking.models.interfaces.Model;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.HashMap;
 
-public class UpdateFlightStrategy implements DBUpdateRequest {
+public class UpdateOrderStrategy implements DBUpdateRequest {
 
-    // TODO LOGGER
-    private static final String REQUEST = "INSERT flights (time, `from`, `to`, name) VALUES(?,?,?,?)";
+    public static final String REQUEST = "INSERT orders (user_id, status, seat_id, flight_id) VALUES (?,?,?,?)";
 
     @Override
     public void update(Model model) {
@@ -24,15 +25,10 @@ public class UpdateFlightStrategy implements DBUpdateRequest {
 
             PreparedStatement statement = connection.prepareStatement(REQUEST);
 
-            String date1 = data.get(FlightFields.TIME).replace("T"," ");
-
-            Timestamp date = Timestamp.valueOf((data.get(FlightFields.TIME).replace("T"," ") + ":00"));
-
-
-            statement.setString(2, data.get(FlightFields.FROM));
-            statement.setString(3, data.get(FlightFields.TO));
-            statement.setString(4, data.get(FlightFields.NAME));
-            statement.setTimestamp(1,date);
+            statement.setInt(1,Integer.parseInt(data.get(OrderFields.USER_ID)));
+            statement.setString(2,data.get(OrderFields.STATUS));
+            statement.setInt(3, Integer.parseInt(data.get(OrderFields.SEAT_ID)));
+            statement.setInt(4, Integer.parseInt(data.get(OrderFields.FLIGHT_ID)));
 
             statement.execute();
 
@@ -41,7 +37,6 @@ public class UpdateFlightStrategy implements DBUpdateRequest {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
 
     }
 }
