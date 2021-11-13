@@ -29,68 +29,74 @@ public class FlightSeatsServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
 
-        ModelFactory factory = new SeatFactory();
-
-        HashMap<Enum<?>, String> data = new HashMap<>();
-
-        ArrayList<Model> models = new ArrayList<>();
-
-        DBSelectRequest selectRequest = new DBGetResult();
-
-        data.put(Fields.FLIGHT_NAME, (String) session.getAttribute("fl"));
+        if (session.getAttribute("user") != null) {
 
 
-        ResultSet resultSet = selectRequest.getData(SelectSQLRequests.GET_FLIGHT, data);
+            ModelFactory factory = new SeatFactory();
 
-        try {
+            HashMap<Enum<?>, String> data = new HashMap<>();
 
-            Flight flight = new Flight();
+            ArrayList<Model> models = new ArrayList<>();
 
-            if(resultSet.next()){
+            DBSelectRequest selectRequest = new DBGetResult();
 
-
-                flight.setId(Integer.parseInt(resultSet.getString("id")));
-                flight.setTime(resultSet.getTimestamp("time"));
-                flight.setFrom(resultSet.getString("from"));
-                flight.setTo(resultSet.getString("to"));
-                flight.setName(resultSet.getString("name"));
+            data.put(Fields.FLIGHT_NAME, (String) session.getAttribute("fl"));
 
 
-            } else{
-                throw new Exception("Invalid Flight");
+            ResultSet resultSet = selectRequest.getData(SelectSQLRequests.GET_FLIGHT, data);
+
+            try {
+
+                Flight flight = new Flight();
+
+                if (resultSet.next()) {
+
+
+                    flight.setId(Integer.parseInt(resultSet.getString("id")));
+                    flight.setTime(resultSet.getTimestamp("time"));
+                    flight.setFrom(resultSet.getString("from"));
+                    flight.setTo(resultSet.getString("to"));
+                    flight.setName(resultSet.getString("name"));
+
+
+                } else {
+                    throw new Exception("Invalid Flight");
+                }
+
+                data.put(Fields.FLIGHT_ID, String.valueOf(flight.getId()));
+
+                resultSet = selectRequest.getData(SelectSQLRequests.GET_SEATS, data);
+
+                while (resultSet.next()) {
+                    Model model = factory.getInstance();
+
+                    //TODO id https://www.educba.com/jsp-checkbox/
+                    data.put(SeatFields.ID, String.valueOf(resultSet.getInt("id")));
+                    data.put(SeatFields.FLIGHT_ID, resultSet.getString("flight_id"));
+                    data.put(SeatFields.PRICE, resultSet.getString("price"));
+                    data.put(SeatFields.CLASS, resultSet.getString("class"));
+                    data.put(SeatFields.ORDER_ID, resultSet.getString("order_id"));
+                    data.put(SeatFields.SEAT_NUMBER, resultSet.getString("seat_number"));
+
+                    model.setModelData(data);
+
+                    models.add(model);
+
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
-            data.put(Fields.FLIGHT_ID, String.valueOf(flight.getId()));
 
-            resultSet = selectRequest.getData(SelectSQLRequests.GET_SEATS,data);
+            request.setAttribute("seats", models);
 
-            while (resultSet.next()) {
-                Model model = factory.getInstance();
+            getServletContext().getRequestDispatcher("/Seats.jsp").forward(request, response);
 
-                //TODO id https://www.educba.com/jsp-checkbox/
-                data.put(SeatFields.ID, String.valueOf(resultSet.getInt("id")));
-                data.put(SeatFields.FLIGHT_ID, resultSet.getString("flight_id"));
-                data.put(SeatFields.PRICE, resultSet.getString("price"));
-                data.put(SeatFields.CLASS, resultSet.getString("class"));
-                data.put(SeatFields.ORDER_ID, resultSet.getString("order_id"));
-                data.put(SeatFields.SEAT_NUMBER, resultSet.getString("seat_number"));
-
-                model.setModelData(data);
-
-                models.add(model);
-
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } else {
+            getServletContext().getRequestDispatcher("/ERROR.jsp").forward(request,response);
         }
-
-
-        request.setAttribute("seats", models);
-
-        getServletContext().getRequestDispatcher("/Seats.jsp").forward(request,response);
-
     }
 
     @Override

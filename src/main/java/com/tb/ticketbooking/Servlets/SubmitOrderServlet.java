@@ -32,53 +32,59 @@ public class SubmitOrderServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
 
-        ModelFactory factory = new SeatFactory();
-
-        String seats[] = (String[]) session.getAttribute("seats-id");
-
-        DBSelectRequest selectRequest = new DBGetResult();
-
-        ResultSet resultSet;
-
-        HashMap<Enum<?>, String> data = new HashMap<>();
-
-        ArrayList<Model> models = new ArrayList<>();
+        if (session.getAttribute("user") != null) {
 
 
-        if (seats != null) {
+            ModelFactory factory = new SeatFactory();
 
-            for (int i = 0; i < seats.length; i++) {
+            String seats[] = (String[]) session.getAttribute("seats-id");
 
-                data.put(SeatFields.ID, seats[i]);
+            DBSelectRequest selectRequest = new DBGetResult();
 
-                Model model = factory.getInstance();
+            ResultSet resultSet;
 
-                resultSet = selectRequest.getData(SelectSQLRequests.GET_SEAT_BY_ID, data);
+            HashMap<Enum<?>, String> data = new HashMap<>();
+
+            ArrayList<Model> models = new ArrayList<>();
 
 
-                try {
-                    while (resultSet.next()) {
-                        data.put(SeatFields.FLIGHT_ID, String.valueOf(resultSet.getInt("flight_id")));
-                        data.put(SeatFields.PRICE, String.valueOf(resultSet.getFloat("price")));
-                        data.put(SeatFields.CLASS, resultSet.getString("class"));
-                        data.put(SeatFields.ORDER_ID, String.valueOf(resultSet.getInt("order_id")));
-                        data.put(SeatFields.SEAT_NUMBER, String.valueOf(resultSet.getInt("seat_number")));
+            if (seats != null) {
+
+                for (int i = 0; i < seats.length; i++) {
+
+                    data.put(SeatFields.ID, seats[i]);
+
+                    Model model = factory.getInstance();
+
+                    resultSet = selectRequest.getData(SelectSQLRequests.GET_SEAT_BY_ID, data);
+
+
+                    try {
+                        while (resultSet.next()) {
+                            data.put(SeatFields.FLIGHT_ID, String.valueOf(resultSet.getInt("flight_id")));
+                            data.put(SeatFields.PRICE, String.valueOf(resultSet.getFloat("price")));
+                            data.put(SeatFields.CLASS, resultSet.getString("class"));
+                            data.put(SeatFields.ORDER_ID, String.valueOf(resultSet.getInt("order_id")));
+                            data.put(SeatFields.SEAT_NUMBER, String.valueOf(resultSet.getInt("seat_number")));
+                        }
+
+                        model.setModelData(data);
+
+                        models.add(model);
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
                     }
-
-                    model.setModelData(data);
-
-                    models.add(model);
-
-                } catch (SQLException e) {
-                    e.printStackTrace();
                 }
             }
+
+            session.setAttribute("ss", models);
+            request.setAttribute("seatOrder", models);
+
+            getServletContext().getRequestDispatcher("/SubmitOrder.jsp").forward(request, response);
+        } else {
+            getServletContext().getRequestDispatcher("/ERROR.jsp").forward(request,response);
         }
-
-        session.setAttribute("ss", models);
-        request.setAttribute("seatOrder", models);
-
-        getServletContext().getRequestDispatcher("/SubmitOrder.jsp").forward(request, response);
     }
 
     @Override

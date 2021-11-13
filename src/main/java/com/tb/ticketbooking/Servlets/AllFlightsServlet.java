@@ -15,15 +15,23 @@ public class AllFlightsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        SelectAllFlights selectAllFlights = new SelectAllFlights();
+        HttpSession session = request.getSession();
+
+        if (session.getAttribute("user") != null){
+            SelectAllFlights selectAllFlights = new SelectAllFlights();
 
 
-        ArrayList<Model> models = selectAllFlights.getFields();
+            ArrayList<Model> models = selectAllFlights.getFields();
 
 
-        request.setAttribute("flight", models);
+            request.setAttribute("flight", models);
 
-        getServletContext().getRequestDispatcher("/AllFlight.jsp").forward(request,response);
+
+            getServletContext().getRequestDispatcher("/AllFlight.jsp").forward(request,response);
+        } else{
+            getServletContext().getRequestDispatcher("/ERROR.jsp").forward(request,response);
+        }
+
     }
 
     @Override

@@ -15,14 +15,14 @@
     <p>
         <label>
             Email:
-            <input type="text" name="login-login">
+            <input type="text" name="login-login" required>
         </label>
     </p>
 
     <p>
         <label>
             Password:
-            <input name="login-password" type="password">
+            <input name="login-password" type="password" required>
         </label>
 
     </p>

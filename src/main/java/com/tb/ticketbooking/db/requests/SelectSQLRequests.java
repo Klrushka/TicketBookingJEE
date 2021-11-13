@@ -2,6 +2,7 @@ package com.tb.ticketbooking.db.requests;
 
 import com.tb.ticketbooking.db.requestStrategies.Fields;
 import com.tb.ticketbooking.models.enums.SeatFields;
+import com.tb.ticketbooking.models.enums.UserFields;
 
 import java.util.HashMap;
 
@@ -83,8 +84,21 @@ public enum SelectSQLRequests {
 
             return buffer.toString();
         }
-    };
+    },
 
+
+    GET_USER_ID_BY_MAIL{
+        @Override
+        public String returnRequest(HashMap<Enum<?>, String> data) {
+            StringBuffer buffer = new StringBuffer();
+
+            buffer
+                    .append("SELECT * FROM users WHERE mail = ")
+                    .append(data.get(UserFields.MAIL));
+
+            return buffer.toString();
+        }
+    };
 
 
 

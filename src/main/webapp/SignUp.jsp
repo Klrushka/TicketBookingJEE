@@ -10,7 +10,7 @@
 <head>
     <title>Registration</title>
     <meta name="viewport" content="device-width">
-    <link rel="stylesheet" href="WEB-INF/styles/LogIn.css">
+   <link rel="stylesheet" href="WEB-INF/styles/style.css" type="text/css">
 </head>
 <body>
 
@@ -20,11 +20,11 @@
     <div class="registration-block">
 
         <p>
-        <input name="name" id="name-input" title="Full name">
+        <input name="name" id="name-input" placeholder="Full name" required>
         </p>
 <p>
 
-        <input name="mail" id="mail-input" title="mail">
+        <input name="mail" id="mail-input" placeholder="mail" required>
 </p>
 
         <p>
@@ -34,14 +34,14 @@
         </p>
 
         <p>
-        <input type="tel" name="phoneNumber" id="phonenumber-input" title="phone">
+        <input type="tel" name="phoneNumber" id="phonenumber-input" placeholder="phone" required pattern="+?[0-9]{12}">
         </p>
 
         <p>
-        <input type="password" name="password" id="password-input" title="password">
+        <input type="password" name="password" id="password-input" placeholder="password" required>
         </p>
         <p>
-        <input type="submit" value="Save" />
+        <input type="submit" value="sign up"/>
         </p>
 
     </div>

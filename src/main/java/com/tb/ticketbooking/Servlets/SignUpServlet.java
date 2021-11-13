@@ -24,6 +24,8 @@ public class SignUpServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        HttpSession session = request.getSession();
+
         HashMap<Enum<?>, String> data = new HashMap<>();
 
         ModelFactory modelFactory = new UserFactory();
@@ -43,7 +45,9 @@ public class SignUpServlet extends HttpServlet {
 
         updateRequest.update(model);
 
-        // TODO forward to main page
+       session.setAttribute("user", model);
+
+       response.sendRedirect("all-flights");
 
     }
 }
