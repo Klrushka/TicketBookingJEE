@@ -7,11 +7,32 @@ import java.util.HashMap;
 
 public class User implements Model {
 
+    private int id;
     private String name;
     private String password;
     private String birthday;
     private String phoneNumber;
     private String mail;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
 
     public String getName() {
         return name;

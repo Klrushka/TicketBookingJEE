@@ -10,11 +10,13 @@ import com.tb.ticketbooking.db.requests.SelectSQLRequests;
 import com.tb.ticketbooking.db.requests.UpdateFieldRequest;
 import com.tb.ticketbooking.models.enums.OrderFields;
 import com.tb.ticketbooking.models.enums.SeatFields;
+import com.tb.ticketbooking.models.enums.UserFields;
 import com.tb.ticketbooking.models.factory.SeatFactory;
 import com.tb.ticketbooking.models.interfaces.Model;
 import com.tb.ticketbooking.models.interfaces.ModelFactory;
 import com.tb.ticketbooking.models.model.Order;
 import com.tb.ticketbooking.models.model.Seat;
+import com.tb.ticketbooking.models.model.User;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -35,6 +37,8 @@ public class SubmitOrderServlet extends HttpServlet {
         if (session.getAttribute("user") != null) {
 
 
+            User user = (User) session.getAttribute("user");
+
             ModelFactory factory = new SeatFactory();
 
             String seats[] = (String[]) session.getAttribute("seats-id");
@@ -52,14 +56,27 @@ public class SubmitOrderServlet extends HttpServlet {
 
                 for (int i = 0; i < seats.length; i++) {
 
+                    data.put(UserFields.MAIL, user.getMail());
+
                     data.put(SeatFields.ID, seats[i]);
 
                     Model model = factory.getInstance();
 
-                    resultSet = selectRequest.getData(SelectSQLRequests.GET_SEAT_BY_ID, data);
+
 
 
                     try {
+
+                        resultSet = selectRequest.getData(SelectSQLRequests.GET_USER_ID_BY_MAIL,data);
+
+                        if(resultSet.next()){
+                            user.setId(resultSet.getInt(1));
+                        }
+
+                       session.setAttribute("user-id",user.getId());
+
+                        resultSet = selectRequest.getData(SelectSQLRequests.GET_SEAT_BY_ID, data);
+
                         while (resultSet.next()) {
                             data.put(SeatFields.FLIGHT_ID, String.valueOf(resultSet.getInt("flight_id")));
                             data.put(SeatFields.PRICE, String.valueOf(resultSet.getFloat("price")));
@@ -126,7 +143,6 @@ public class SubmitOrderServlet extends HttpServlet {
                     data.put(OrderFields.USER_ID, String.valueOf(session.getAttribute("user-id")));
 
 
-//                    resultSet = selectRequest.getData(SelectSQLRequests.GET_SEAT_BY_ID,data);
 
                     UpdateFieldsExecutor.execute(UpdateFieldRequest.UPDATE_SEAT_ORDER_ID.returnRequest(data));
 

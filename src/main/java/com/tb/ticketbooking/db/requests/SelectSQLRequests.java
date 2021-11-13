@@ -93,8 +93,9 @@ public enum SelectSQLRequests {
             StringBuffer buffer = new StringBuffer();
 
             buffer
-                    .append("SELECT * FROM users WHERE mail = ")
-                    .append(data.get(UserFields.MAIL));
+                    .append("SELECT * FROM users WHERE mail = '")
+                    .append(data.get(UserFields.MAIL))
+                    .append("'");
 
             return buffer.toString();
         }

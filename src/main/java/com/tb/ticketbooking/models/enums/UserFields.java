@@ -7,5 +7,6 @@ public enum UserFields {
     MAIL,
     PASSWORD,
     BIRTHDAY,
-    PHONENUMBER
+    PHONENUMBER,
+    ID
 }
