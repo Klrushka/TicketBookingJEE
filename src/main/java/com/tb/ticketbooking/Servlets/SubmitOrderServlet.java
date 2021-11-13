@@ -75,7 +75,7 @@ public class SubmitOrderServlet extends HttpServlet {
             }
         }
 
-        session.setAttribute("ss",models);
+        session.setAttribute("ss", models);
         request.setAttribute("seatOrder", models);
 
         getServletContext().getRequestDispatcher("/SubmitOrder.jsp").forward(request, response);
@@ -89,15 +89,12 @@ public class SubmitOrderServlet extends HttpServlet {
         ArrayList<Seat> seats = (ArrayList<Seat>) session.getAttribute("ss");
 
 
-
-
         HashMap<Enum<?>, String> data = new HashMap<>();
 
         DBSelectRequest selectRequest = new DBGetResult();
 
 
-        // TODO НАЙДИ ОШИБКУ
-        ResultSet resultSet = selectRequest.getData(SelectSQLRequests.GET_SEAT_BY_ID, data);
+        ResultSet resultSet = selectRequest.getData(SelectSQLRequests.GET_ORDER_ID, data);
 
         DBUpdateRequest updateRequest = new UpdateOrderStrategy();
 
@@ -107,16 +104,16 @@ public class SubmitOrderServlet extends HttpServlet {
 
             if (resultSet.next()) {
 
-                order.setId(resultSet.getInt("id") + 1);
+                order.setId(resultSet.getInt(1) + 1);
 
                 data.put(OrderFields.ID, String.valueOf(order.getId()));
 
 
-                for (int i = 0; i < seats.size(); i++){
+                for (int i = 0; i < seats.size(); i++) {
 
                     data.put(SeatFields.ID, String.valueOf(seats.get(i).getId()));
 
-                    data.put(OrderFields.SEAT_ID, seats.get(i).getSeat_number());
+                    data.put(OrderFields.SEAT_ID, String.valueOf(seats.get(i).getId()));
 
                     data.put(OrderFields.FLIGHT_ID, seats.get(i).getFlightId());
 
@@ -132,6 +129,8 @@ public class SubmitOrderServlet extends HttpServlet {
                     updateRequest.update(order);
 
                     data.put(OrderFields.ID, String.valueOf(order.getId() + 1));
+
+                    order.setId(order.getId() + 1);
                 }
 
 

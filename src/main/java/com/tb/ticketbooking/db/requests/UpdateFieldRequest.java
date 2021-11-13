@@ -1,6 +1,7 @@
 package com.tb.ticketbooking.db.requests;
 
 import com.tb.ticketbooking.models.enums.OrderFields;
+import com.tb.ticketbooking.models.enums.SeatFields;
 
 import java.util.HashMap;
 
@@ -13,8 +14,10 @@ public enum UpdateFieldRequest {
             StringBuffer buffer = new StringBuffer();
 
             buffer
-                    .append("UPDATE orders SET order_id = ")
-                    .append(data.get(OrderFields.ID));
+                    .append("UPDATE seats SET order_id = ")
+                    .append(data.get(OrderFields.ID))
+                    .append(" WHERE id = ")
+                    .append(data.get(SeatFields.ID));
 
             return buffer.toString();
 

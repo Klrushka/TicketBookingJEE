@@ -72,7 +72,10 @@ public class Order implements Model {
         flight_id = Integer.parseInt(data.get(OrderFields.FLIGHT_ID));
         seat_id = Integer.parseInt(data.get(OrderFields.SEAT_ID));
         status = data.get(OrderFields.STATUS);
-        user_id = Integer.parseInt(data.get(OrderFields.USER_ID));
+//        if (data.get(OrderFields.USER_ID) == null) {
+//            user_id = 1;
+//        } else
+//            user_id = Integer.parseInt(data.get(OrderFields.USER_ID));
 
     }
 }
