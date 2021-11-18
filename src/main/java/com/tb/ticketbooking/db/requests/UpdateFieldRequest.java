@@ -22,6 +22,21 @@ public enum UpdateFieldRequest {
             return buffer.toString();
 
         }
+    },
+
+
+
+    DELETE_ORDER_FROM_SEAT{
+        @Override
+        public String returnRequest(HashMap<Enum<?>, String> data) {
+            StringBuffer buffer = new StringBuffer();
+
+            buffer
+                    .append("UPDATE seats SET order_id = -1 WHERE id = ")
+                    .append(data.get(SeatFields.ID));
+
+            return buffer.toString();
+        }
     };
 
     UpdateFieldRequest() {

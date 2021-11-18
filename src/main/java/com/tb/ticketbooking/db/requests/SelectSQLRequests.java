@@ -146,6 +146,20 @@ public enum SelectSQLRequests {
 
             return buffer.toString();
         }
+    },
+
+
+    GET_ORDER_BY_SEAT{
+        @Override
+        public String returnRequest(HashMap<Enum<?>, String> data) {
+            StringBuffer buffer = new StringBuffer();
+
+            buffer
+                    .append("SELECT * FROM orders WHERE seat_id = ")
+                    .append(SeatFields.ID);
+
+            return buffer.toString();
+        }
     };
 
 

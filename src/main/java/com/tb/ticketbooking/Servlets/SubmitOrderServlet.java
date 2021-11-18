@@ -1,5 +1,6 @@
 package com.tb.ticketbooking.Servlets;
 
+import com.tb.ticketbooking.bill.Bill;
 import com.tb.ticketbooking.db.interfaces.DBSelectRequest;
 import com.tb.ticketbooking.db.interfaces.DBUpdateRequest;
 import com.tb.ticketbooking.db.requestStrategies.select.DBGetResult;
@@ -111,6 +112,7 @@ public class SubmitOrderServlet extends HttpServlet {
         HttpSession session = request.getSession();
         ArrayList<Seat> seats = (ArrayList<Seat>) session.getAttribute("ss");
 
+        Bill.createBill(seats, String.valueOf(session.getAttribute("fl")));
 
         HashMap<Enum<?>, String> data = new HashMap<>();
 
@@ -166,5 +168,7 @@ public class SubmitOrderServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        response.sendRedirect("all-flights");
     }
 }

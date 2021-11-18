@@ -2,7 +2,11 @@ package com.tb.ticketbooking.Servlets;
 
 import com.tb.ticketbooking.db.requestStrategies.Fields;
 import com.tb.ticketbooking.db.requestStrategies.select.DBGetResult;
+import com.tb.ticketbooking.db.requestStrategies.update.field.UpdateFieldsExecutor;
+import com.tb.ticketbooking.db.requests.DeleteSQLRequest;
 import com.tb.ticketbooking.db.requests.SelectSQLRequests;
+import com.tb.ticketbooking.db.requests.UpdateFieldRequest;
+import com.tb.ticketbooking.db.requests.UpdateSQLRequests;
 import com.tb.ticketbooking.models.enums.FlightFields;
 import com.tb.ticketbooking.models.enums.OrderFields;
 import com.tb.ticketbooking.models.enums.SeatFields;
@@ -38,7 +42,7 @@ public class UserOrdersServlet extends HttpServlet {
 
         data.put(Fields.FLIGHT_NAME, String.valueOf(session.getAttribute("fl")));
 
-        ResultSet resultSet = dbGetResult.getData(SelectSQLRequests.GET_FLIGHT,data);
+        ResultSet resultSet = dbGetResult.getData(SelectSQLRequests.GET_FLIGHT, data);
 
         ArrayList<Order> orders = new ArrayList<>();
 
@@ -47,7 +51,7 @@ public class UserOrdersServlet extends HttpServlet {
 
         try {
 
-            if (resultSet.next()){
+            if (resultSet.next()) {
                 data.put(FlightFields.ID, String.valueOf(resultSet.getInt("id")));
             }
 
@@ -68,7 +72,6 @@ public class UserOrdersServlet extends HttpServlet {
                 orders.add(order);
 
             }
-
 
 
             for (int i = 0; i < orders.size(); i++) {
@@ -96,11 +99,36 @@ public class UserOrdersServlet extends HttpServlet {
             exception.printStackTrace();
         }
 
-        getServletContext().getRequestDispatcher("/UserOrders.jsp").forward(request,response);
+        getServletContext().getRequestDispatcher("/UserOrders.jsp").forward(request, response);
     }
-        @Override
-    protected void doPost (HttpServletRequest request, HttpServletResponse response) throws
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws
             ServletException, IOException {
+
+        String cancel[] = request.getParameterValues("seat-id-cancel");
+
+        ArrayList<Order> orders = new ArrayList<>();
+
+        DBGetResult dbGetResult = new DBGetResult();
+
+        ResultSet resultSet;
+
+        HashMap<Enum<?>, String> data = new HashMap<>();
+
+
+        for (int i = 0; i < cancel.length; i++) {
+
+            data.put(SeatFields.ID, cancel[i]);
+
+            UpdateFieldsExecutor.execute(UpdateFieldRequest.DELETE_ORDER_FROM_SEAT.returnRequest(data));
+
+            UpdateFieldsExecutor.execute(DeleteSQLRequest.DELETE_ORDER_BY_ID.returnRequest(data));
+
+        }
+
+        response.sendRedirect("all-flights");
+
 
     }
 }

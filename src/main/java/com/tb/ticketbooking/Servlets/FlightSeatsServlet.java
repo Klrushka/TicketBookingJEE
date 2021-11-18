@@ -70,7 +70,7 @@ public class FlightSeatsServlet extends HttpServlet {
                 while (resultSet.next()) {
                     Model model = factory.getInstance();
 
-                    //TODO id https://www.educba.com/jsp-checkbox/
+
                     data.put(SeatFields.ID, String.valueOf(resultSet.getInt("id")));
                     data.put(SeatFields.FLIGHT_ID, resultSet.getString("flight_id"));
                     data.put(SeatFields.PRICE, resultSet.getString("price"));

@@ -37,7 +37,7 @@
         <c:forEach var="seat" items="${seats1}">
             <tr>
                 <td>
-                    <input type="checkbox" name="seat-id" value="${seat.id}">
+                    <input type="checkbox" name="seat-id-cancel" value="${seat.id}">
                 </td>
                 <td>
                         ${seat.seat_number}
@@ -51,6 +51,8 @@
             </tr>
         </c:forEach>
     </table>
+
+    <input type="submit" value="delete">
 </form>
 </body>
 </html>
