@@ -55,6 +55,7 @@
     <input type="submit" value="book">
 
 <a href="user-orders"> order history </a>
+<a href="add-comment"> comments </a>
 </form>
 </body>
 </html>

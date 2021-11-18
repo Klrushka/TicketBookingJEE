@@ -1,10 +1,7 @@
 package com.tb.ticketbooking.db.requests;
 
 import com.tb.ticketbooking.db.requestStrategies.Fields;
-import com.tb.ticketbooking.models.enums.FlightFields;
-import com.tb.ticketbooking.models.enums.OrderFields;
-import com.tb.ticketbooking.models.enums.SeatFields;
-import com.tb.ticketbooking.models.enums.UserFields;
+import com.tb.ticketbooking.models.enums.*;
 
 import java.util.HashMap;
 
@@ -160,7 +157,24 @@ public enum SelectSQLRequests {
 
             return buffer.toString();
         }
+    },
+
+
+
+    GET_ALL_COMMENTS_ABOUT_FLIGHTS{
+        @Override
+        public String returnRequest(HashMap<Enum<?>, String> data) {
+            StringBuffer buffer = new StringBuffer();
+
+            buffer
+                    .append("SELECT * FROM comments WHERE flight_id = ")
+                    .append(data.get(CommentsFields.FLIGHT_ID));
+
+            return buffer.toString();
+        }
     };
+
+
 
 
 

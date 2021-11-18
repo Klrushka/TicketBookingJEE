@@ -2,8 +2,10 @@ package com.tb.ticketbooking.db.requests;
 
 
 import com.tb.ticketbooking.db.interfaces.DBUpdateRequest;
+import com.tb.ticketbooking.db.requestStrategies.update.UpdateCommentStrategy;
 import com.tb.ticketbooking.db.requestStrategies.update.UpdateFlightStrategy;
 import com.tb.ticketbooking.db.requestStrategies.update.UpdateUserStrategy;
+import com.tb.ticketbooking.models.model.Comment;
 import com.tb.ticketbooking.models.model.Flight;
 import com.tb.ticketbooking.models.model.User;
 import com.tb.ticketbooking.models.interfaces.Model;
@@ -23,9 +25,15 @@ public class UpdateSQLRequests implements DBUpdateRequest {
 
             request.update(model);
 
-        } else if (model instanceof Flight){
+        } else if (model instanceof Flight) {
 
             request = new UpdateFlightStrategy();
+
+            request.update(model);
+
+        } else if (model instanceof Comment) {
+
+            request = new UpdateCommentStrategy();
 
             request.update(model);
 
