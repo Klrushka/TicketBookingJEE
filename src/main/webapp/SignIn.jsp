@@ -32,9 +32,12 @@
         <input type="submit" title="login">
     </p>
 
+
     <p>
-        <a href="all-flights">reader mode</a>
+        <a href="all-flights-rm">reader mode</a>
     </p>
+
+
 </form>
 
 

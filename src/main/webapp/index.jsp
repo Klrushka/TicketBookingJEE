@@ -15,9 +15,8 @@
 
 <a href="sign-in">Sing In</a>
 <a href="sign-up">Sign Up</a>
-<%--<a href="add-flight">Add Flight</a>--%>
-<%--<a href="add-seat">Add Seat</a>--%>
-<%--<a href="all-flights">All Flight</a>--%>
+
+<p><a href="all-flights-rm"> read mode </a></p>
 
 </body>
 </html>

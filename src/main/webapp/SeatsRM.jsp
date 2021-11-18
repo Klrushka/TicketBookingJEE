@@ -16,7 +16,6 @@
 <body>
 
     <h1> <%=session.getAttribute("fl")%> </h1>
-<form method="post">
     <table>
         <tr>
             <th>
@@ -52,9 +51,9 @@
         </c:forEach>
     </table>
 
-    <input type="submit" value="book">
+<div>
+    You are in read mode
+</div>
 
-<a href="user-orders"> order history </a>
-</form>
 </body>
 </html>

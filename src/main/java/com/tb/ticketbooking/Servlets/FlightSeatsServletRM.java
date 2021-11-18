@@ -1,4 +1,4 @@
-package com.tb.ticketbooking.Servlets.readmode;
+package com.tb.ticketbooking.Servlets;
 
 import com.tb.ticketbooking.db.interfaces.DBSelectRequest;
 import com.tb.ticketbooking.db.requestStrategies.Fields;
@@ -22,15 +22,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-@WebServlet(name = "FlightSeatsServlet", value = "/flight-seats-rm")
+@WebServlet(name = "FlightSeatsServletRM", value = "/flight-seats-rm")
 public class FlightSeatsServletRM extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-
-        if (session.getAttribute("user") != null) {
-
 
             ModelFactory factory = new SeatFactory();
 
@@ -70,7 +67,6 @@ public class FlightSeatsServletRM extends HttpServlet {
                 while (resultSet.next()) {
                     Model model = factory.getInstance();
 
-                    //TODO id https://www.educba.com/jsp-checkbox/
                     data.put(SeatFields.ID, String.valueOf(resultSet.getInt("id")));
                     data.put(SeatFields.FLIGHT_ID, resultSet.getString("flight_id"));
                     data.put(SeatFields.PRICE, resultSet.getString("price"));
@@ -92,22 +88,13 @@ public class FlightSeatsServletRM extends HttpServlet {
 
             request.setAttribute("seats", models);
 
-            getServletContext().getRequestDispatcher("/Seats.jsp").forward(request, response);
+            getServletContext().getRequestDispatcher("/SeatsRM.jsp").forward(request, response);
 
-        } else {
-            getServletContext().getRequestDispatcher("/ERROR.jsp").forward(request,response);
-        }
+
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-
-        String seatsId[] = request.getParameterValues("seat-id");
-
-        session.setAttribute("seats-id",seatsId);
-
-        response.sendRedirect("submit-order");
 
     }
 }
