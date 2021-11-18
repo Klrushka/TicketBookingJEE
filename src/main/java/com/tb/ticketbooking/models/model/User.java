@@ -66,6 +66,7 @@ public class User implements Model {
     public HashMap<Enum<?>, String> getModelData() {
         HashMap<Enum<?>, String> data = new HashMap<>();
 
+        data.put(UserFields.ID, String.valueOf(id));
         data.put(UserFields.NAME, name);
         data.put(UserFields.PASSWORD, password);
         data.put(UserFields.BIRTHDAY, birthday);
@@ -77,6 +78,7 @@ public class User implements Model {
 
     @Override
     public void setModelData(HashMap<Enum<?>,String> data) {
+        id = Integer.parseInt(data.get(UserFields.ID));
         name = data.get(UserFields.NAME);
         mail = data.get(UserFields.MAIL);
         password = data.get(UserFields.PASSWORD);

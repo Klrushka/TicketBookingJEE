@@ -15,12 +15,12 @@
 </head>
 <body>
 
-    <h1> <%=session.getAttribute("fl")%> </h1>
+<h1> <%=session.getAttribute("fl")%> </h1>
 <form method="post">
     <table>
         <tr>
             <th>
-                Book
+
             </th>
             <th>
                 Place number
@@ -34,27 +34,23 @@
         </tr>
 
 
-        <c:forEach var="seat" items="${seats}">
-        <tr>
-            <td>
-                <input type="checkbox" name="seat-id" value="${seat.id}">
-            </td>
-            <td>
-               ${seat.seat_number}
-            </td>
-            <td>
-                ${seat.sClass}
-            </td>
-            <td>
-                ${seat.price}
-            </td>
-        </tr>
+        <c:forEach var="seat" items="${seats1}">
+            <tr>
+                <td>
+                    <input type="checkbox" name="seat-id" value="${seat.id}">
+                </td>
+                <td>
+                        ${seat.seat_number}
+                </td>
+                <td>
+                        ${seat.sClass}
+                </td>
+                <td>
+                        ${seat.price}
+                </td>
+            </tr>
         </c:forEach>
     </table>
-
-    <input type="submit" value="book">
-
-<a href="http://localhost:8080/TicketBookingJEE_war_exploded/user-orders"> order history </a>
 </form>
 </body>
 </html>

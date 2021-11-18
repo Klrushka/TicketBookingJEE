@@ -1,4 +1,4 @@
-package com.tb.ticketbooking.Servlets;
+package com.tb.ticketbooking.Servlets.readmode;
 
 import com.tb.ticketbooking.db.interfaces.DBSelectRequest;
 import com.tb.ticketbooking.db.requestStrategies.Fields;
@@ -22,8 +22,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-@WebServlet(name = "FlightSeatsServlet", value = "/flight-seats")
-public class FlightSeatsServlet extends HttpServlet {
+@WebServlet(name = "FlightSeatsServlet", value = "/flight-seats-rm")
+public class FlightSeatsServletRM extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

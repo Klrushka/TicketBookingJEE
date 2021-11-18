@@ -1,6 +1,8 @@
 package com.tb.ticketbooking.db.requests;
 
 import com.tb.ticketbooking.db.requestStrategies.Fields;
+import com.tb.ticketbooking.models.enums.FlightFields;
+import com.tb.ticketbooking.models.enums.OrderFields;
 import com.tb.ticketbooking.models.enums.SeatFields;
 import com.tb.ticketbooking.models.enums.UserFields;
 
@@ -96,6 +98,51 @@ public enum SelectSQLRequests {
                     .append("SELECT * FROM users WHERE mail = '")
                     .append(data.get(UserFields.MAIL))
                     .append("'");
+
+            return buffer.toString();
+        }
+    },
+
+
+
+    GET_ORDERS_BY_USER_AND_FLIGHT_ID {
+        @Override
+        public String returnRequest(HashMap<Enum<?>, String> data) {
+            StringBuffer buffer = new StringBuffer();
+
+            buffer
+                    .append("SELECT * FROM orders WHERE user_id = ")
+                    .append(data.get(UserFields.ID))
+                    .append(" AND flight_id = ")
+                    .append(data.get(FlightFields.ID));
+
+            return buffer.toString();
+        }
+    },
+
+
+    GET_FLIGHT_BY_ID{
+        @Override
+        public String returnRequest(HashMap<Enum<?>, String> data) {
+            StringBuffer buffer = new StringBuffer();
+
+            buffer
+                    .append("SELECT * FROM flights WHERE id = ")
+                    .append(data.get(OrderFields.FLIGHT_ID));
+
+            return buffer.toString();
+        }
+    },
+
+
+    GET_SEAT_NUMBER_BY_ID{
+        @Override
+        public String returnRequest(HashMap<Enum<?>, String> data) {
+            StringBuffer buffer = new StringBuffer();
+
+            buffer
+                    .append("SELECT seat_number FROM seats WHERE id = ")
+                    .append(OrderFields.SEAT_ID);
 
             return buffer.toString();
         }

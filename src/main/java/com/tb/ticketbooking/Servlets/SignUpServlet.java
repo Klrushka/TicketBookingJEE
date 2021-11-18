@@ -34,6 +34,7 @@ public class SignUpServlet extends HttpServlet {
 
         Model model = modelFactory.getInstance();
 
+
         data.put(UserFields.NAME, request.getParameter("name"));
         data.put(UserFields.PASSWORD, request.getParameter("password"));
         data.put(UserFields.BIRTHDAY, String.valueOf(request.getParameter("birthday")));
@@ -47,7 +48,7 @@ public class SignUpServlet extends HttpServlet {
 
        session.setAttribute("user", model);
 
-       response.sendRedirect("all-flights");
+       response.sendRedirect("sgn-in");
 
     }
 }

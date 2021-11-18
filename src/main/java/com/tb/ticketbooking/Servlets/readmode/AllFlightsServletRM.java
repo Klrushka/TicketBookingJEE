@@ -1,4 +1,4 @@
-package com.tb.ticketbooking.Servlets;
+package com.tb.ticketbooking.Servlets.readmode;
 
 import com.tb.ticketbooking.db.requestStrategies.select.alldata.SelectAllFlights;
 import com.tb.ticketbooking.models.interfaces.Model;
@@ -10,8 +10,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-@WebServlet(name = "AllFlightsServlet", value = "/all-flights")
-public class AllFlightsServlet extends HttpServlet {
+@WebServlet(name = "AllFlightsServlet", value = "/all-flights-rm")
+public class AllFlightsServletRM extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

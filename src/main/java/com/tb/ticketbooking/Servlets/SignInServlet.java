@@ -48,6 +48,7 @@ public class SignInServlet extends HttpServlet {
 
         try {
             if (resultSet.next()){
+                data.put(UserFields.ID, String.valueOf(resultSet.getInt("id")));
                 data.put(UserFields.BIRTHDAY, String.valueOf(resultSet.getDate("birthday")));
                 data.put(UserFields.MAIL, resultSet.getString("mail"));
                 data.put(UserFields.NAME, resultSet.getString("name"));
